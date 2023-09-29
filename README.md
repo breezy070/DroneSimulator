@@ -3,7 +3,7 @@
 Exercice de simulation de drones
 
 Mon but dans cet exercice de praire est de me remettre dans le rythme et de travailler mon Javascript. J'ai décidé de ne pas m'en servir trop des plugins car comme j'avais dit, je voulais travailler mon Javascript;
-et pas passer mon temps à configurer un plugiciel.
+et pas passer mon temps à configurer un plugin.
 
 J'ai déployé en ligne mon projet sur Netlify pour que la visualisation soit plus facile pour le professeur. j'ai intégré avec github et netlify, du CI/CD, si je change quelque chose dans mon code, et que je le push
 sur git, le site web s'actualisera automatiquement aussi.
