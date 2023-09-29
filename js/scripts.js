@@ -79,9 +79,6 @@ var options = {
   //motion events
   function moveDrones(data) {
 
-
-    
-
         for (var i=0; i<data.length; i++) {
         let route = JSON.stringify(data[i].directions)
         i++;
@@ -96,10 +93,6 @@ var options = {
         // console.log("route1: " + JSON.stringify(route1));
         // console.log("route1: " + JSON.stringify(route2));
         // console.log("route1: " + JSON.stringify(route3));
-        
-
-
-
 
         var seqGroup = L.motion
     .seq([
@@ -263,8 +256,10 @@ function chooseDepart() {
   let value = map.on('click', onMapClick);
   console.log(value._popup._latlng);
   let pointDepart = value._popup._latlng;
+  let resultstr = pointDepart.toString();
+  
 
-  document.getElementById("Lat").value = pointDepart;
+  document.getElementById("Lat").value = resultstr.replace("LatLng(", "").replace(")", "");;
 
   
 }
@@ -273,8 +268,11 @@ function chooseArrivee() {
   let value = map.on('click', onMapClick);
   console.log(value._popup._latlng);
   let pointArrivee = value._popup._latlng;
+
+  let resultstr = pointArrivee.toString();
+  console.log(resultstr);
  
-  document.getElementById("Lng").value = pointArrivee;
+  document.getElementById("Lng").value = resultstr.replace("LatLng(", "").replace(")", "");
 }
 
 function clearInputs() {
@@ -283,30 +281,40 @@ function clearInputs() {
 }
 
 function goToPoint() {
-  let lat = document.getElementById("Lat").value;
-  let lng = document.getElementById("Lng").value;
+  let coordA = document.getElementById("Lat").value;
+  let coordB = document.getElementById("Lng").value;
 
-  let strLat = lat.slice(6);
-  let strLng = lng.slice(6);
+  // console.log("coordA: "+coordA.substring(0,9) + "coordB: " +  coordB);
 
-  
+  let coordALat = coordA.substring(0,9);
+  let coordALng = coordA.substring(12, 20);
 
-  console.log(strLat, strLng)
+  let coordBLat = coordB.substring(0,9);
+  let coordBLng = coordB.substring(12, 20);
+
+  console.log (coordALat, coordALng)
+
+  let destinationSTR =  `[{"lat":${coordALat}, "lng":${coordALng}},{"lat":${coordBLat}, "lng":${coordBLng}}]`
+  console.log(destinationSTR);
+
+  console.log(destinationSTR);
+
+
 
   // let marker = L.marker([strLat, strLng]).addTo(map);
 
-    var route3 = JSON.parse(
-    '[{"lat":-31.399844,"lng":-64.183245},{"lat":-31.422332,"lng":-64.199982},{"lat":-31.399844,"lng":-64.183245}]'
-  );
+  //   var route3 = JSON.parse(
+  //   '[{"lat":-31.399844,"lng":-64.183245},{"lat":-31.422332,"lng":-64.199982},{"lat":-31.399844,"lng":-64.183245}]'
+  // );
 
   var seqGroup = L.motion
   .seq([
 
   L.motion
   .polyline(
-      route3,
+    JSON.parse(destinationSTR),
     {
-      color: "transparent",
+      color: "red",
     },
     {
       easing: L.Motion.Ease.easeInOutQuart,
