@@ -1,0 +1,76 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Leaftlet Drone</title>
+
+    <link rel="stylesheet" href="/css/styles.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <link
+      rel="stylesheet"
+      href="https://leaflet.github.io/Leaflet.draw/src/leaflet.draw.css"
+    />
+
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    <script
+      src="https://kit.fontawesome.com/bf4b22f18a.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.2/leaflet.draw.js"></script>
+    <script src="
+    https://cdn.jsdelivr.net/npm/leaflet.motion@0.3.2/dist/leaflet.motion.min.js
+    "></script>
+  </head>
+
+  <body>
+    <div><h1>Drone Simulator</h1></div>
+    <form>
+      <label for="Lat">COORDINATES START</label><br />
+
+      <input type="text" id="Lat" name="Lat" value="" /><br />
+
+      <label for="Lng">COORDINATES END</label><br />
+
+      <input type="text" id="Lng" name="Lng" value="" /><br /><br />
+    </form>
+    <button id="submit" type="button" onclick="goToPoint();">SUBMIT</button>
+    <div id="ctrl">
+      <button id="start">START SHIPMENT</button>
+      <button id="stop">CANCEL SHIPMENT</button>
+      <button id="toggle">PAUSE/RESUME SHIPMENT</button>
+
+      <!-- <button id="start" onclick="goBackMarker();">BACK TO WAREHOUSE</button> -->
+      <!-- <select name="type" id="type">
+        <option value="1">marker.start()</option>
+        <option value="2">marker.moveTo()</option>
+      </select> -->
+      <!-- <input type="checkbox" id="fixed" />
+      <label for="fixed">setTimeout</label> -->
+      <button id="pickStart" type="button" onclick="chooseDepart();">
+        CHOOSE DEPART
+      </button>
+      <button id="pickEnd" type="button" onclick="chooseArrivee();">
+        CHOOSE ARRIVEE
+      </button>
+      <button id="clear" type="button" onclick="clearInputs();">
+        CLEAR INPUTS
+      </button>
+    </div>
+
+    <br />
+    <div id="map"></div>
+
+    <script src="/js/scripts.js"></script>
+  </body>
+</html>

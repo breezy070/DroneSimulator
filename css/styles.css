@@ -1,0 +1,7 @@
+#map { height: 800px; }
+
+.leaflet-div-icon {
+    background: transparent !important;
+    border: none !important;
+    color: white;
+  }

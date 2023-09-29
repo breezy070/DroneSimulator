@@ -1,0 +1,69 @@
+<html>
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+      integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+      crossorigin=""
+    />
+
+    <script
+      src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+      integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+      crossorigin=""
+    ></script>
+    <script src="../dist/leaflet.motion.js"></script>
+    <style>
+      #mapid {
+        height: 400px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="mapid"></div>
+    <script>
+      var map = L.map("Lmap").setView([60, 10], 10);
+
+      L.tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 18,
+        fadeAnimation: false,
+        zoomAnimation: false,
+        markerZoomAnimation: false,
+        attribution:
+          '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+      }).addTo(map);
+
+      let motionLine = L.motion
+        .polyline(
+          [
+            [50, 0],
+            [60, 10],
+          ],
+          {
+            color: "transparent",
+          },
+          {
+            auto: true,
+            duration: 3000,
+            easing: L.Motion.Ease.easeInOutQuart,
+          },
+          {
+            removeOnEnd: false,
+            icon: L.divIcon({
+              html: "<i class='fa fa-car fa-2x' aria-hidden='true'></i>",
+              iconSize: L.point(27.5, 24),
+            }),
+          }
+        )
+        .addTo(map);
+
+      let marker = motionLine.getMarker();
+
+      marker.on("click", onClick);
+
+      function onClick(e) {
+        alert(this.getLatLng());
+      }
+    </script>
+  </body>
+</html>
