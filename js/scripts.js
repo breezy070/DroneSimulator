@@ -29,14 +29,11 @@ var options = {
   var drawControl = new L.Control.Draw(options);
   map.addControl(drawControl);
 
-  //drawing the line and making the drone follow the line using the leaflet motion plug in
+  //drawing the line and making the drone follow the line using the leaflet motion pluggin
   map.on(L.Draw.Event.CREATED, function (e) {
 
         var type = e.layerType;
         var layer = e.layer;
-
-        // let maxspeed = motionSpeed(5000);
-        // console.log(maxspeed);
 
         if (type === "polyline") {
           var line = L.motion
@@ -61,8 +58,6 @@ var options = {
             .addTo(map);
         }
   });
-
-
 
   //predefined routes
 
@@ -158,10 +153,8 @@ var options = {
     ])
     .addTo(map);
   
-//   seqGroup.on("click", function () {
-//     seqGroup.motionPause();
-//   });
 
+    //functions for the buttons to start and stop the drone movement
   document.getElementById("start").addEventListener("click", function () {
     seqGroup.motionStart();
   });
@@ -170,17 +163,6 @@ var options = {
     seqGroup.motionStop();
   });
 
-  document.getElementById("toggle").addEventListener("click", function () {
-    seqGroup.motionToggle();
-  });
-  
-//   seqGroup.on("dblclick", function (e) {
-//     seqGroup.motionResume();
-//   });
-  
-//   setTimeout(function () {
-//     seqGroup.motionStart();
-//   }, 1000);
 
         }
 
@@ -188,42 +170,11 @@ var options = {
     
   }
 
-
-
-
- 
-
-// adds marker on click
+// adds marker by clicking anywhere in the map
 // map.on("click", function(e){
 //     new L.Marker([e.latlng.lat, e.latlng.lng]).addTo(map);
 //  })
 
-
-// var polylinePoints = [
-//     [-31.4, -64.183],
-//     [-31.38399999999998, -64.16699999999993],
-//     [-31.391370999999967, -64.15515899999987],
-//     [-31.4, -64.183],
-//     [-31.357877999999957, -64.10080999999983],
-//     [-31.381293999999965, -64.10872399999987],
-//     [-31.35893099999996, -64.16732499999985]
-//   ];
-
-//   //polyline 3 is the  warehouse
-
-// function moveDrone() {
-//     L.motion.polyline( [polylinePoints[0], polylinePoints[1], polylinePoints[2], polylinePoints[3], polylinePoints[4],polylinePoints[3], polylinePoints[5], polylinePoints[6], polylinePoints[3]], {
-//         color: "transparent"
-//     }, {
-//         auto: true,
-//         duration: 9000,
-//         easing: L.Motion.Ease.linear,
-        
-//     }, {
-//         removeOnEnd: true,
-//         icon: L.divIcon({html: "<i class='fas fa-plane fa-2x'></i>", iconSize: L.point(30,30)})
-//     }).addTo(map);
-// }
 
 
 //here we are showing the coordinates whenever we click on the map
@@ -233,10 +184,6 @@ function onMapClick(e) {
         .setLatLng(e.latlng)
         .setContent("You clicked the map at " + e.latlng.toString())
         .openOn(map);
-
-    // let pointDepart = e.latlng.toString();
-
-    // document.getElementById("Lat").value = pointDepart.slice(6);
    
 }
 
@@ -248,10 +195,7 @@ function chooseDepart() {
   let pointDepart = value._popup._latlng;
   let resultstr = pointDepart.toString();
   
-
-  document.getElementById("Lat").value = resultstr.replace("LatLng(", "").replace(")", "");;
-
-  
+  document.getElementById("Lat").value = resultstr.replace("LatLng(", "").replace(")", "");; 
 }
 
 
@@ -291,16 +235,6 @@ function goToPoint() {
   let destinationSTR =  `[{"lat":${coordALat}, "lng":${coordALng}},{"lat":${coordBLat}, "lng":${coordBLng}}]`
   console.log(destinationSTR);
 
-  console.log(destinationSTR);
-
-
-
-  // let marker = L.marker([strLat, strLng]).addTo(map);
-
-  //   var route3 = JSON.parse(
-  //   '[{"lat":-31.399844,"lng":-64.183245},{"lat":-31.422332,"lng":-64.199982},{"lat":-31.399844,"lng":-64.183245}]'
-  // );
-
   var seqGroup = L.motion
   .seq([
 
@@ -327,21 +261,15 @@ function goToPoint() {
 ])
 .addTo(map);
 
+
+//start motion when clicking on the GO button
 document.getElementById("submit").addEventListener("click", function () {
   seqGroup.motionStart();
-});
+});}
 
 
-  // marker.on('move', function(ev) {
-    
-  // marker.bindPopup(`location: ${ev.latlng} alt: ${ev.timestamp}`)
-  // .openPopup();
-  // });
-  
-}
-// add a marker in the given location
-//place markers using the json file
 
+//this function was meant to make the markers move without having to use a leaflet pluggin.
 // function showDrones(data) {
 
 //     for (var i=0; i<data.length; i++) {
@@ -488,7 +416,7 @@ var dropZone = L.circle([dLat, dLng], {
 }).addTo(map);
 
 
-
+//this function made the drone go back to its original starting point
 // function goBackMarker(lat, lng) {
 
 //     let latitude = lat;
@@ -541,42 +469,3 @@ var dropZone = L.circle([dLat, dLng], {
 //     }, 200);
     
 // }
-
-
-
-// // add a layer and add points
-// var myLayer = L.geoJson().addTo(map);
-
-// // geojsonFeature
-// var geojsonFeature = {
-//     "type": "Feature",
-//         "properties": {
-//         "name": "Coors Field",
-//             "amenity": "Baseball Stadium",
-//             "popupContent": "This is where the Rockies play!"
-//     },
-//         "geometry": {
-//         "type": "Point",
-//             "coordinates": [-105.99404, 39.75621]
-//     }
-// };
-
-// // put the marker
-// setTimeout(function () {
-//     myLayer.addData(geojsonFeature);
-// }, 1000);
-
-// // update the marker
-// setTimeout(function () {
-//     // clear layer
-//     myLayer.clearLayers(); // inherited from LayerGroup
-//     //myLayer.addData(geojsonFeature);
-// }, 3000);
-
-// // put the marker
-// setTimeout(function () {
-//     myLayer.addData(geojsonFeature);
-// }, 5000);
-
-// just fooling around
-
