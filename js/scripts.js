@@ -1,9 +1,7 @@
+//fetching the predefined drone routes from the json file
 fetch('./../routesData.json')
     .then(response => response.json())
     .then( data => moveDrones(data));
-
-
-let FPS = .5;
 
 
 // Create the map
@@ -15,6 +13,8 @@ L.tileLayer(
     maxZoom: 18
 }).addTo(map);
 
+
+//set up options for the drawing toolkit that appears on the top left side of the map
 var options = {
     draw: {
       circle: false, // Turns off this drawing tool
@@ -25,10 +25,11 @@ var options = {
     },
   };
 
+  // setting up the draw function
   var drawControl = new L.Control.Draw(options);
   map.addControl(drawControl);
 
-  
+  //drawing the line and making the drone follow the line using the leaflet motion plug in
   map.on(L.Draw.Event.CREATED, function (e) {
 
         var type = e.layerType;
@@ -76,7 +77,7 @@ var options = {
 //   );
 
 
-  //motion events
+  //this function allows the drone to follow a predefined path set in the json files, using a for loop to iterate over each route and grab the data
   function moveDrones(data) {
 
         for (var i=0; i<data.length; i++) {
@@ -225,16 +226,8 @@ var options = {
 // }
 
 
-
-
-
-
-
-
+//here we are showing the coordinates whenever we click on the map
 var popup = L.popup();
-
-
-
 function onMapClick(e) {
     popup
         .setLatLng(e.latlng)
@@ -247,10 +240,7 @@ function onMapClick(e) {
    
 }
 
-
-
-
-
+//this function allows the user to click on the map to grab drone's starting point
 function chooseDepart() {
  
   let value = map.on('click', onMapClick);
@@ -264,6 +254,8 @@ function chooseDepart() {
   
 }
 
+
+//this function allows the user to click on the map to grab drone's drop zone
 function chooseArrivee() {
   let value = map.on('click', onMapClick);
   console.log(value._popup._latlng);
@@ -275,11 +267,13 @@ function chooseArrivee() {
   document.getElementById("Lng").value = resultstr.replace("LatLng(", "").replace(")", "");
 }
 
+//clears the inputs in the form
 function clearInputs() {
   document.getElementById("Lat").value = "";
   document.getElementById("Lng").value = "";
 }
 
+//once the coordinates have been chosen, the drone will travel from the starting point to the drop point
 function goToPoint() {
   let coordA = document.getElementById("Lat").value;
   let coordB = document.getElementById("Lng").value;
@@ -435,7 +429,7 @@ document.getElementById("submit").addEventListener("click", function () {
 
 // var marker = L.marker([lat, lng]).addTo(map);
 
-//add dropzone
+//adding dropzone, they are shown on the map as transparent red circles
 var dLat1 =  -31.35893099999996;
 var dLng1 = -64.16732499999985;
 var dropZone = L.circle([dLat1, dLng1], {
@@ -483,7 +477,7 @@ var dropZone2 = L.circle([dLat5, dLng5], {
 
 
 
-//add Warehouse
+//add Warehouse, shown on the map as a green transparent circle
 var dLat = -31.4;
 var dLng = -64.183;
 var dropZone = L.circle([dLat, dLng], {
@@ -547,12 +541,6 @@ var dropZone = L.circle([dLat, dLng], {
 //     }, 200);
     
 // }
-
-
-
-
-
-
 
 
 
